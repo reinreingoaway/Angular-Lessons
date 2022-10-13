@@ -6,6 +6,8 @@
   * [Running the Application](#running-the-application)
   * [Creating your first application](#creating-your-first-application)
     + [Login Page](#login-page)
+    + [Styling and Design](#styling-and-design)
+    + [Data handling](#data-handling)
 
 <br>
 
@@ -183,8 +185,37 @@ After we save it, it should now be successful, and no errors should show. If you
 
 - It is now time to do some personalization with the application.
 - Time for you to explore it!
-- Continuation of this tutorial on the next branch. Time to learn GIT :P
+- And we back for lesson2!
+- Inside angular material there are already readily available designs that we can use like mat cards, field appearances etc.
+
+- Notable styling changes
+    - Added mat-card in login.component.html
+    - Added appearance attribute in mat-form-fields
+    - Update some flex layout styling in login.component.html
+    - Added some native styling on both login.component.scss and app.component.scss
+
+### Data handling
+
+- We already started with the forms so let's add more to it.
+- We added some validators in the loginForm that we declared inside login.component.ts.
+- We also added a minlength validator on the password control but it is not being displayed on the application.
+- Let's now create a mat-error tag under the password input field.
+
+
+- Now, that our display is done, let's add some logic inside the login.component.ts by starting with the onSubmit function.
+- We will now also be introducing a new block in angular called service. Services are used to handle more business logic implementation like API calls, calculations, data modifications and etc.
+- To create a login service, run the command
 
 ```
-git checkout lesson2
+ng generate service login
 ```
+
+- This will create a login service and spec file under the app folder, so let's manually move them inside the login folder.
+- Let's open the `login.service.ts` that has an annotation called Injectable, this means that these classes can be injected to component classes. 
+- Before we do that, you can also see the configuration called `providedIn`, this is a shortcut to add this service to the main module providers, but we do not want to do that.
+- Since the login service should only be created when we are using the login module, so we will be modifying the `login.service.ts`
+- Then go to the `login.module.ts` to add as part of the providers the login service.
+- After we added the login service as part of the login module, we can now start integrating the service within the component and we will create a function inside the service to call a mock api. 
+- We should also create an interface to define a model of the loginForm value. Let's create a login.model.ts file.
+
+- AND now you already have a working login form.

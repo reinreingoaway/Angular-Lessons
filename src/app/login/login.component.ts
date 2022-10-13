@@ -1,6 +1,8 @@
+import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginForm } from './login.model';
 
 @Component({
   // This is the name of this component when integrated with other components.
@@ -32,13 +34,30 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls.email;
   }
 
-  constructor() { }
+  get passwordControl() {
+    return this.loginForm.controls.password;
+  }
+
+  // We inject services inside the constructor (you should already know what is a constructor)
+  constructor(private loginService: LoginService) { }
 
   // This is part of angular lifecycle, will be discussed in the future. https://angular.io/guide/lifecycle-hooks
   ngOnInit(): void {
   }
 
-  onSubmit() {}
+  /**
+   * This function should call the backend or authorizer to check if the credentials are valid.
+   * For now let's do a mock for it.
+   */
+  onSubmit() {
+    // We need to check first if the form has no errors
+    if (this.loginForm.valid) {
+      // If we are now sure that the form is valid, we will now call a service that will do an API call.
+      const formValue: LoginForm = this.loginForm.value;
+
+      this.loginService.authenticate(formValue.email, formValue.password);
+    }
+  }
 
   navigateToRegisterPage() {}
 }

@@ -4,40 +4,47 @@
     [formGroup]="loginForm"
     (ngSubmit)="onSubmit()"
     fxLayout="column"
-    fxLayoutGap="10px"
+    fxLayoutAlign="center center"
 >
-    <!-- Email Input Field using angular material form field and material input, this will wrap the input for a better customization -->
-    <mat-form-field>
-        <mat-label>Email</mat-label>
-        <!-- formControl was used here to show the difference with formControlName,
-        formControl takes a value of the actual control instance -->
-        <input
-            type="email"
-            matInput
-            [formControl]="emailControl"
-            placeholder="Ex. rein.macho@example.com"
-        >
-        <mat-error *ngIf="emailControl?.hasError('email') && !emailControl?.hasError('required')">
-            Please enter a valid email address
-        </mat-error>
-        <mat-error *ngIf="emailControl?.hasError('required')">
-            Email is <strong>required</strong>
-        </mat-error>
-    </mat-form-field>
-
-    <!-- Password Input Field -->
-    <mat-form-field>
-        <mat-label>Password</mat-label>
-        <!-- The formControlName is used if we know that this entity
-        is inside a formGroup (declared at the top) and we can pass just the name 
-        of the actual control -->
-        <input type="password" matInput formControlName="password">
-    </mat-form-field>
-
-    <!-- Button Container, to hold the login and register button -->
-    <div fxLayout="row" fxLayoutGap="5px">
-        <!-- A button with type submit will trigger the ngSubmit attributed to the form -->
-        <button mat-flat-button color="primary" type="submit">Login</button>
-        <button mat-button color="primary" type="button" (click)="navigateToRegisterPage()">Register</button>
-    </div>
+    <h1>LOGIN PAGE</h1>
+    <mat-card fxLayout="column" fxLayoutGap="4px">
+        <!-- Email Input Field using angular material form field and material input, this will wrap the input for a better customization -->
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <!-- formControl was used here to show the difference with formControlName,
+            formControl takes a value of the actual control instance -->
+            <input
+                type="email"
+                matInput
+                [formControl]="emailControl"
+                placeholder="Ex. rein.macho@example.com"
+            >
+            <mat-error *ngIf="emailControl?.hasError('email') && !emailControl?.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailControl?.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    
+        <!-- Password Input Field -->
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <!-- The formControlName is used if we know that this entity
+            is inside a formGroup (declared at the top) and we can pass just the name 
+            of the actual control -->
+            <input type="password" matInput formControlName="password">
+            <!-- Additional error display if password is less than the value set in the minlength validator -->
+            <mat-error *ngIf="passwordControl?.hasError('minlength')">
+                Password should be at least <strong>{{ passwordControl?.errors?.minlength?.requiredLength }}</strong> characters
+            </mat-error>
+        </mat-form-field>
+    
+        <!-- Button Container, to hold the login and register button -->
+        <div fxLayout="row" fxLayoutGap="5px">
+            <!-- A button with type submit will trigger the ngSubmit attributed to the form -->
+            <button fxFlex mat-flat-button color="primary" type="submit">Login</button>
+            <button fxFlex mat-button color="primary" type="button" (click)="navigateToRegisterPage()">Register</button>
+        </div>
+    </mat-card>
 </form>
